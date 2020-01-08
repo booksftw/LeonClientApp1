@@ -1,0 +1,2 @@
+## New enviorment
+You may need to drop the database using dotnet-cli before fresh updating the migrations
