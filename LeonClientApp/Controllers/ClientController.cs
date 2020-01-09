@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeonClientApp.Services;
+using LeonCustomerTracker.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,9 +28,11 @@ namespace LeonClientApp.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("[action]")]
+        public void AddClient([FromBody] ClientDetailsDto clientData, [FromServices] IClientService clientService)
         {
+            // Todo Validation
+            clientService.Add(clientData);
         }
 
         // PUT api/<controller>/5

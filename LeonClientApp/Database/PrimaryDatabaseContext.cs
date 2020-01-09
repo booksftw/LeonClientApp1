@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using LeonCustomerTracker.Models;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace LeonCustomerTracker.Database
 {
@@ -9,10 +10,7 @@ namespace LeonCustomerTracker.Database
     {
         private readonly IConfiguration _config;
 
-        // ! Samples of Tables in DB
-        //public DbSet<Blog> Blogs { get; set; }
-        //public DbSet<Post> Posts { get; set; }
-        public DbSet<Client> Clients { get; set; }
+        public DbSet<Client> Client { get; set; }
 
         public PrimaryDatabaseContext(DbContextOptions<PrimaryDatabaseContext> options, IConfiguration config) : base(options)
         {
@@ -25,19 +23,24 @@ namespace LeonCustomerTracker.Database
 			optionsBuilder.UseSqlite("Data Source=LeonClientTracker.db");
         }
 
-        // Sample code for relationships
+        // Sample code for relationships and table init
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
+                .ToTable("Client")
                 .HasKey(k => k.Id);
-
         }
 
-        public class Client
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
+        // Perhaps put this in it's own file later
+        //public class Client
+        //{
+        //    [Required]
+        //    public int Id { get; set; }
+        //    public string firstName { get; set; }
+        //    public string lastName { get; set; }
+        //    public DateTime birthday { get; set; } // Todo Consider update type in future
+        //    public int totalSpending { get; set; }
+        //}
 
     }
 }

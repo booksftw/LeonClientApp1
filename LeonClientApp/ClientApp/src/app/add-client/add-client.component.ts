@@ -26,9 +26,10 @@ export class AddClientComponent {
     // TODO: Use EventEmitter with form value
     console.warn(this.profileForm.value);
 
-    this.http.post(this.baseUrl + 'api/Base/AddClient', this.profileForm.value)
+    this.http.post(this.baseUrl + 'api/Client/AddClient', this.profileForm.value)
       .subscribe(result => {
         // Do stuff with result
+         console.log("heres the result", result);
       }, error => console.error(error));
 
   }

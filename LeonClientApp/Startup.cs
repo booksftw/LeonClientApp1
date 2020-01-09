@@ -1,4 +1,6 @@
+using LeonClientApp.Services;
 using LeonCustomerTracker.Database;
+using LeonCustomerTracker.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -27,6 +29,9 @@ namespace LeonClientApp
             // Add Db Context
             services.AddDbContext<PrimaryDatabaseContext>();
 
+            // Add Services
+            services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IGeneralUtil, GeneralUtil>();
 
             services.Configure<ForwardedHeadersOptions>(options =>
             {
