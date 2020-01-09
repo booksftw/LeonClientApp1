@@ -20,7 +20,8 @@ namespace LeonCustomerTracker.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // optionsBuilder.UseSqlServer("Data Source=LeonClientTracker.db");
-			optionsBuilder.UseSqlite("Data Source=LeonClientTracker.db");
+			optionsBuilder.UseSqlite("Data
+			Source=/home/znick46/LeonClientApp/LeonClientApp/LeonClientTracker.db"); // Find a way to get the root of this app directory path instead of hard code
         }
 
         // Sample code for relationships and table init

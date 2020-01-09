@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeonClientApp.Migrations
 {
     [DbContext(typeof(PrimaryDatabaseContext))]
-    [Migration("20200109052806_init")]
+    [Migration("20200109054901_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
