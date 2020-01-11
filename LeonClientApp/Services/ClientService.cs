@@ -50,5 +50,6 @@ namespace LeonClientApp.Services
             _db.Client.Remove(_db.Client.First(el => el.Id == id));
             _db.SaveChanges();
         }
+
     }
 }

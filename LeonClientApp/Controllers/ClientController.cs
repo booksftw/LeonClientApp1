@@ -69,5 +69,20 @@ namespace LeonClientApp.Controllers
             Console.WriteLine(id);
             clientService.DeleteClient(id);
         }
+
+        [HttpGet("[action]")]
+        public ActionResult<List<ClientNextMonthBirthdayDto>> GetClientBirthdayInformation([FromServices] IClientService clientService)
+        {
+            var result = clientService.GetAll().ToList().FindAll(client => {
+                if ( (client.birthday.Month - DateTime.Today.Month == 1) || (client.birthday.Month == 12 && DateTime.Today.Month == 1) )
+                {
+                    return true;
+                }
+                return false;
+            });
+
+            // Return list of clients with birthday next month
+            return Ok(result);
+        }
     }
 }
