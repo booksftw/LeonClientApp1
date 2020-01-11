@@ -2,7 +2,6 @@
 
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 
-  <div class="form-group">
     <label>
       First Name*:
       <input type="text" formControlName="firstName" class="form-control">
@@ -12,7 +11,7 @@
       Last Name:
       <input type="text" formControlName="lastName" class="form-control">
     </label>
-
+    
     <label for="birthday">Birthday*</label>
     <input type="date" id="birthday" name="birthday" formControlName="birthday">
 
@@ -22,9 +21,14 @@
     <label for="quantity">Total Spending</label>
     <input type="number" name="quantity" min="0" max="2147483647" value="0" formControlName="totalSpending"> <!-- Javscript Max Limit -->
 
-  </div>
+    <label>
+       Notes:
+      <input type="text" formControlName="notes" class="form-control">
+    </label>
+
   <button class="btn btn-primary" style="display:block" type="submit" [disabled]="!profileForm.valid">Submit</button>
 </form>
 
-
+<h1 *ngIf="showSubmissionSuccessIndicator" style="color:green">Save Success</h1>
+<h1 *ngIf="showSubmissionFailureIndicator" style="color:red">Error</h1>
 

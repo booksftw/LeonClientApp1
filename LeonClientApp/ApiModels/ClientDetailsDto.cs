@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LeonCustomerTracker.ApiModels
+namespace LeonClientApp.ApiModels
 {
     public class ClientDetailsDto
     {
@@ -11,5 +11,6 @@ namespace LeonCustomerTracker.ApiModels
         public string lastName { get; set; }
         public DateTime birthday { get; set; } // Todo Consider update type in future
         public int totalSpending { get; set; }
+        public string notes { get; set; }
     }
 }

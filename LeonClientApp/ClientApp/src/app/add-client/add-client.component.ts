@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Validators, FormBuilder } from '@angular/forms';
 
@@ -9,28 +9,43 @@ import { Validators, FormBuilder } from '@angular/forms';
 })
 
 export class AddClientComponent {
+
+  showSubmissionSuccessIndicator = false;
+  showSubmissionFailureIndicator = false;
+
   profileForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: [''],
     birthday: ['', Validators.required],
     email: ['', Validators.email],
-    totalSpending: ['']
+    totalSpending: [''],
+    notes: ['']
   });
 
-  xyz = "empty";
 
   constructor(private fb: FormBuilder, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
     console.warn(this.profileForm.value);
 
     this.http.post(this.baseUrl + 'api/Client/AddClient', this.profileForm.value)
       .subscribe(result => {
-        // Do stuff with result
-         console.log("heres the result", result);
-      }, error => console.error(error));
+        this.showFormIndicatorAnimation(true)
+      }, error => {
+        this.showFormIndicatorAnimation(false)
+        console.error(error)
+      });
 
+  }
+
+  showFormIndicatorAnimation(submissionIsSuccessful) {
+    if (submissionIsSuccessful) {
+      this.showSubmissionSuccessIndicator = true;
+      setTimeout(_ => this.showSubmissionSuccessIndicator = false, 4000)
+    } else {
+      this.showSubmissionFailureIndicator = true;
+      setTimeout(_ => this.showSubmissionFailureIndicator = false, 4000)
+    }
   }
 }

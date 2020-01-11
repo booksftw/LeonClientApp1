@@ -1,6 +1,6 @@
 using LeonClientApp.Services;
-using LeonCustomerTracker.Database;
-using LeonCustomerTracker.Utilities;
+using LeonClientApp.Database;
+using LeonClientApp.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;

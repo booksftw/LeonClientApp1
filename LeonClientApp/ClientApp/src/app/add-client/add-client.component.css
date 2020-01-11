@@ -1,11 +1,11 @@
 /* Birthday input */
 label {
   display: block;
-  font: 1rem 'Fira Sans', sans-serif;
+  font: 1rem "Fira Sans", sans-serif;
 }
 
 input,
 label {
-  margin: .4rem 0;
+  margin: 0.4rem 0;
 }
 /* end of birthday*/

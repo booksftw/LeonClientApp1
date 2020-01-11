@@ -1,9 +1,10 @@
-﻿using LeonCustomerTracker.Models;
+﻿using LeonClientApp.Models;
 
-namespace LeonCustomerTracker.Utilities
+namespace LeonClientApp.Utilities
 {
     public interface IGeneralUtil
     {
         Rank getClientRank(int clientTotalSpending);
+        string getHumanReadableRank(Rank rank);
     }
 }

@@ -1,0 +1,32 @@
+<p>review-client works!</p>
+
+<div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">Birthday</th>
+          <th scope="col">Accumulated Spending</th>
+          <th scope="col">Notes</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--Todo *ngFor the tr for each client-->
+        <tr *ngFor="let client of clients; let i = index;">
+          <th scope="row">{{i}}</th>
+          <td> {{client.first_name}} {{client.last_name}}</td>
+          <td>{{client.humanReadableRank}}</td>
+          <td>{{client.birthday}}</td>
+          <td class="text-center">${{client.spending}}</td>
+          <td>{{client.notes}}</td>
+          <td class="text-center" ><button class="text-danger btn" (click)="deleteClient(client.id)"> X </button> </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+
+<h1>Note Add a remove button to remove client fomr database</h1>

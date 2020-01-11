@@ -1,10 +1,10 @@
-﻿using LeonCustomerTracker.Models;
+﻿using LeonClientApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LeonCustomerTracker.Utilities
+namespace LeonClientApp.Utilities
 {
     public class GeneralUtil : IGeneralUtil
     {
@@ -30,6 +30,21 @@ namespace LeonCustomerTracker.Utilities
                 result = Rank.VIP;
             }
             return result;
+        }
+
+        public string getHumanReadableRank(Rank rank)
+        {
+            switch (rank)
+            {
+                case Rank.Normal:
+                    return "Normal Spender";
+                case Rank.Good:
+                    return "Good Spender";
+                case Rank.VIP:
+                    return "VIP Spender";
+            }
+
+            throw new Exception("There has been a problem determing the human readable rank in general utilities file");
         }
     }
 }

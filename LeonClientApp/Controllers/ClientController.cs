@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeonClientApp.ApiModels;
 using LeonClientApp.Services;
-using LeonCustomerTracker.ApiModels;
+using LeonClientApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using LeonClientApp.Utilities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,10 +16,28 @@ namespace LeonClientApp.Controllers
     public class ClientController : Controller
     {
         // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("[action]")]
+        public List<ClientReadDataDTO> GetAllClients( [FromServices] IClientService clientService, [FromServices] IGeneralUtil utilService)
         {
-            return new string[] { "value1", "value2" };
+            var result = new List<ClientReadDataDTO>();
+            var clients = clientService.GetAll().ToList();
+
+            foreach (var client in clients)
+            {
+                var n = new ClientReadDataDTO() {
+                    id = client.Id,
+                    first_name = client.first_name,
+                    last_name = client.last_name,
+                    birthday = client.birthday.ToShortDateString(),
+                    spending = client.spending,
+                    humanReadableRank = utilService.getHumanReadableRank(client.rank),
+                    notes = client.notes
+                };
+
+                result.Add(n);
+            }
+
+            return result;        
         }
 
         // GET api/<controller>/5
@@ -30,6 +50,7 @@ namespace LeonClientApp.Controllers
         // POST api/<controller>
         [HttpPost("[action]")]
         public void AddClient([FromBody] ClientDetailsDto clientData, [FromServices] IClientService clientService)
+
         {
             // Todo Validation
             clientService.Add(clientData);
@@ -43,8 +64,10 @@ namespace LeonClientApp.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void DeleteClient(int id, [FromServices] IClientService clientService)
         {
+            Console.WriteLine(id);
+            clientService.DeleteClient(id);
         }
     }
 }
