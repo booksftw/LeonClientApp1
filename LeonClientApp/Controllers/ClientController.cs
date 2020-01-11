@@ -15,6 +15,11 @@ namespace LeonClientApp.Controllers
     [Route("api/[controller]")]
     public class ClientController : Controller
     {
+        private IClientService _clientService;
+        public ClientController([FromServices] IClientService clientService)
+        {
+            _clientService = clientService;
+        }
         // GET: api/<controller>
         [HttpGet("[action]")]
         public List<ClientReadDataDTO> GetAllClients( [FromServices] IClientService clientService, [FromServices] IGeneralUtil utilService)
@@ -71,18 +76,40 @@ namespace LeonClientApp.Controllers
         }
 
         [HttpGet("[action]")]
-        public ActionResult<List<ClientNextMonthBirthdayDto>> GetClientBirthdayInformation([FromServices] IClientService clientService)
+        public List<Client> GetClientBirthdayInformation()
         {
-            var result = clientService.GetAll().ToList().FindAll(client => {
+            var result = _clientService.GetAll().ToList().FindAll(client => {
                 if ( (client.birthday.Month - DateTime.Today.Month == 1) || (client.birthday.Month == 12 && DateTime.Today.Month == 1) )
                 {
                     return true;
                 }
                 return false;
             });
-
             // Return list of clients with birthday next month
-            return Ok(result);
+            return result;
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<string> GetClientBirthdayHTMLForEmail([FromServices] IGeneralUtil util)
+        {
+            List<Client> clientsWithBDays = GetClientBirthdayInformation();
+            var emailHtmlList = new List<string>();
+
+            clientsWithBDays.ForEach(c =>
+           {
+               string clientHtmlString = $@"
+                    <li>           
+                        * {c.first_name} {c.last_name} <br>
+                            • {util.getHumanReadableRank(c.rank)} <br>
+                            • Spent ${c.spending} <br>
+                            • Birthday = {c.birthday.ToShortDateString()} 
+                    </li><br>
+                ";
+
+               emailHtmlList.Add(clientHtmlString);
+           });
+
+          return Ok(String.Join("",emailHtmlList) );
         }
     }
 }
